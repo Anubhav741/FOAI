@@ -26,16 +26,17 @@ export function useNews() {
       const searchTerm = query.trim() || cat;
       const data = await fetchLatestNews({ query: searchTerm, page });
       const results = data.results || [];
+      console.log('[News] Loaded', results.length, 'articles | status:', data.status);
       setArticles(prev => append ? [...prev, ...results] : results);
       setNextPage(data.nextPage || null);
+
+      // If using fallback/demo data, show a subtle warning (not error)
+      if (data.status === 'fallback' || data.status === 'demo') {
+        setError('Showing demo articles — news API key may be missing or invalid.');
+      }
     } catch (err) {
-      console.error('News fetch error:', err?.response?.data || err.message);
-      const msg = err?.response?.data?.results?.message
-        || err?.response?.data?.message
-        || err?.message
-        || 'Failed to fetch news';
-      setError(msg);
-      toast.error(msg);
+      console.error('[News] fetch error:', err?.message);
+      setError('Failed to load news. Please try again.');
     } finally {
       setLoading(false);
       setLoadingMore(false);
