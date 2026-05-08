@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* ========================
+   CSS CUSTOM PROPERTIES
+======================== */
+:root {
+  --color-bg: #0a0a0f;
+  --color-surface: #12121a;
+  --color-surface-2: #1a1a28;
+  --color-border: rgba(255,255,255,0.08);
+  --color-primary: #6366f1;
+  --color-primary-glow: rgba(99,102,241,0.3);
+  --color-accent: #22d3ee;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-text: #f1f5f9;
+  --color-muted: #94a3b8;
+}
+
+[data-theme="light"] {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-border: rgba(0,0,0,0.08);
+  --color-primary: #6366f1;
+  --color-primary-glow: rgba(99,102,241,0.15);
+  --color-accent: #0891b2;
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+}
+
+/* ========================
+   GLOBAL RESET
+======================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================
+   CUSTOM SCROLLBAR
+======================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #818cf8;
+}
+
+/* ========================
+   GLASS CARD
+======================== */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+[data-theme="light"] .glass-card {
+  background: rgba(255,255,255,0.8);
+}
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--color-primary-glow);
+}
+
+/* ========================
+   GRADIENT TEXT
+======================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================
+   GLOW EFFECTS
+======================== */
+.glow-primary {
+  box-shadow: 0 0 20px var(--color-primary-glow);
+}
+.glow-text {
+  text-shadow: 0 0 20px var(--color-primary);
+}
+
+/* ========================
+   LEAFLET OVERRIDES
+======================== */
+.leaflet-container {
+  background: #0d1117 !important;
+  font-family: 'Inter', sans-serif;
+  border-radius: 1rem;
+}
+[data-theme="light"] .leaflet-container {
+  background: #e2e8f0 !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--color-surface-2) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 0.75rem !important;
+}
+.leaflet-popup-tip {
+  background: var(--color-surface-2) !important;
+}
+
+/* ========================
+   ISS MARKER PULSE
+======================== */
+.iss-marker-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iss-pulse {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(99,102,241,0.4);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ========================
+   TYPING INDICATOR
+======================== */
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: bounce-dot 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce-dot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+}
+
+/* ========================
+   SKELETON LOADING
+======================== */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-2) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ========================
+   NAV ACTIVE INDICATOR
+======================== */
+.nav-link-active {
+  background: var(--color-primary-glow);
+  color: var(--color-primary) !important;
+  border-left: 3px solid var(--color-primary);
+}
+
+/* ========================
+   GRADIENT BACKGROUNDS
+======================== */
+.bg-gradient-hero {
+  background: radial-gradient(ellipse at top, rgba(99,102,241,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at bottom-right, rgba(34,211,238,0.1) 0%, transparent 50%),
+              var(--color-bg);
+}
+
+/* ========================
+   CHATBOT WINDOW
+======================== */
+.chat-window {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1);
+}
+
+/* ========================
+   NEWS CARD IMAGE
+======================== */
+.news-img-container {
+  overflow: hidden;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.news-img-container img {
+  transition: transform 0.4s ease;
+}
+.news-img-container:hover img {
+  transform: scale(1.05);
+}
+
+/* ========================
+   RECHARTS OVERRIDES
+======================== */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--color-surface-2) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 0.5rem !important;
+  color: var(--color-text) !important;
+}
+.recharts-cartesian-grid line {
+  stroke: var(--color-border) !important;
+}
+
+/* ========================
+   PAGE TRANSITIONS
+======================== */
+.page-enter {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
